@@ -1,0 +1,166 @@
+body{
+    background-color: var(--background-white);
+}
+
+.site-wrapper {
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.page-title {
+    margin-top: 20px;
+}
+
+
+.chart {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.pie-chart {
+    width: 250px;
+    height: auto;
+}
+
+.summary {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.result-item {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 30%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
+    margin-bottom: 20px;
+    justify-content: left;
+}
+
+.icon-text-box {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.icon {
+    width: 60px;
+}
+
+.info h2 {
+    font-size: 1.5em;
+    font-weight: 600;
+    color: #343a40;
+}
+
+.percentage {
+    font-size: 1.5em;
+    font-weight: bold; 
+    color: #343a40;
+}
+
+.result-item p {
+    font-size: 1.1em;
+    color: #6c757d;
+}
+
+.recommendation{
+    width: 100%;
+    background-color: #e8f7f1;
+    border-radius: 8px;
+    padding: 20px; 
+    margin-bottom: 40px;
+}
+
+.recommendation h2, .tips h2 {
+    font-size: 1.6em;
+    color: #343a40;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.recommendation ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.recommendation li {
+    font-size: 1.1em;
+    color: #6c757d;
+    margin-bottom: 10px;
+}
+
+.recommendation li:before {
+    content: "•";
+    color: #00bf63;
+    margin-right: 10px;
+}
+
+/* Buttons */
+.buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 25px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;  
+    margin-top: 15px; 
+}
+
+button:hover {
+    background-color: #00a055;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .result-item {
+        width: 45%;
+    }
+
+    .summary {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .buttons {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .pie-chart {
+        width: 220px;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-title {
+        font-size: 1.6em;
+    }
+
+    .result-item {
+        width: 100%;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        font-size: 1em;
+    }
+}

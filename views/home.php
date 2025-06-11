@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EduStyle</title>
     <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/home_style.css">
 </head>
-<body class="home-body">
+<body>
     <div class="site-wrapper">
         <?php
             include __DIR__ . '/components/header.php';
@@ -35,12 +36,12 @@
                             <p>Belajar melalui gambar, diagram, dan visualisasi</p>
                         </div>
                         <div class="learning-style-item">
-                            <img src="../assets/image/logo_auditori.png" alt="Auditory">
+                            <img src="../assets/image/logo_auditori.png" alt="Auditori">
                             <h3>Auditori</h3>
                             <p>Belajar melalui mendengarkan dan diskusi</p>
                         </div>
                         <div class="learning-style-item">
-                            <img src="../assets/image/logo_kinestetik.png" alt="Kinesthetic">
+                            <img src="../assets/image/logo_kinestetik.png" alt="Kinestetik">
                             <h3>Kinestetik</h3>
                             <p>Belajar melalui praktik dan pengalaman langsung</p>
                         </div>
