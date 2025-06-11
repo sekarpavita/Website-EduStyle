@@ -8,6 +8,8 @@ $request_uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 switch ($request_uri) {
     case '/':
+        include __DIR__ . '/views/home.php';
+        break;
     case '/question':
         $controller = new QuestionController();
         $controller->showQuestions();
@@ -15,8 +17,7 @@ switch ($request_uri) {
     case '/submit-answers':
         $controller = new QuestionController();
         $controller->processAnswers();
-        break;
-        // halaman hasil
+        break; 
     case '/result':
         include __DIR__ . '/views/result_view.php';
         break;
