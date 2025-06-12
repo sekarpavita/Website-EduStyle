@@ -64,8 +64,8 @@
         </div>
 
         <div class="buttons">
-            <button onclick="window.location.href='question_view.php'">Ulangi Tes</button>
-            <button onclick="window.location.href='home.php'">Kembali ke Beranda</button>
+            <button onclick="window.location.href='/question'">Ulangi Tes</button>
+            <button onclick="window.location.href='/'">Kembali ke Beranda</button>
         </div>
     </div>
 

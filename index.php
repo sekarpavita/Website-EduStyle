@@ -19,7 +19,7 @@ switch ($request_uri) {
         $controller->processAnswers();
         break; 
     case '/result':
-        include __DIR__ . '/views/result_view.php';
+        include __DIR__ . '/views/result.php';
         break;
     default:
         header("HTTP/1.0 404 Not Found");

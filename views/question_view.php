@@ -63,6 +63,6 @@
         </div> </div> <?php
     include __DIR__ . '/components/footer.php';
     ?>
-    <script src="assets/js/validasi_question.js"></script>
+    <script src="/assets/js/validasi_question.js"></script>
 </body>
 </html>

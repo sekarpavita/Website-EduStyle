@@ -53,7 +53,7 @@
                 <div class="container">
                     <h2 class="page-title">Coba sekarang dan tingkatkan kemampuan belajar Anda secara optimal</h2>
                     <p>Bergabunglah sekarang dan raih potensi belajar terbaik Anda</p>
-                    <button class="cta-button" onclick="window.location.href='question_view.php'">Mulai Tes</button>
+                    <button class="cta-button" onclick="window.location.href='/question'">Mulai Tes</button>
                 </div>
             </section>
         </main>
