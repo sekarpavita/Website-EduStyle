@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (form && submitButton) {
         form.addEventListener('submit', async function(event) {
-            event.preventDefault();
+            event.preventDefault(); 
 
             let totalV = 0;
             let totalA = 0;
@@ -13,16 +13,15 @@ document.addEventListener('DOMContentLoaded', function() {
             let firstUnansweredQuestion = null;
 
             const questionBlocks = document.querySelectorAll('.question-block');
-            const answers = {};
+            const answers = {}; 
 
             questionBlocks.forEach((block, index) => {
                 const radios = block.querySelectorAll('input[type="radio"]');
-                let isAnswered = false;
-                let answeredValue = null;
+                let isAnsweredInBlock = false; 
 
                 radios.forEach(radio => {
                     if (radio.checked) {
-                        isAnswered = true;
+                        isAnsweredInBlock = true;
                         const idMatch = radio.name.match(/\[(\d+)\]/);
                         if (idMatch) {
                             const questionId = parseInt(idMatch[1]);
@@ -31,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 });
 
-                if (!isAnswered) {
+                if (!isAnsweredInBlock) {
                     allAnswered = false;
                     block.style.border = '2px solid #dc3545';
                     if (!firstUnansweredQuestion) {
@@ -55,24 +54,24 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             for (let i = 1; i <= 30; i++) {
-                const value = answers[i];
-                if (i >= 1 && i <= 10) {
-                    totalV += value;
-                } else if (i >= 11 && i <= 20) {
-                    totalA += value;
-                } else if (i >= 21 && i <= 30) {
-                    totalK += value;
+                if (answers[i] !== undefined) {
+                    const value = answers[i]; 
+                    if (i >= 1 && i <= 10) {
+                        totalV += value;
+                    } else if (i >= 11 && i <= 20) {
+                        totalA += value;
+                    } else if (i >= 21 && i <= 30) {
+                        totalK += value;
+                    }
                 }
             }
 
-            const maxScorePerCategory = 10 * 5;
-
-            const normalizedV = (totalV / maxScorePerCategory) * 100;
-            const normalizedA = (totalA / maxScorePerCategory) * 100;
-            const normalizedK = (totalK / maxScorePerCategory) * 100;
+            const normalizedV = totalV; 
+            const normalizedA = totalA;
+            const normalizedK = totalK;
 
             try {
-                const flaskApiUrl = 'http://127.0.0.1:5000/calculate_learning_style';
+                const flaskApiUrl = 'http://127.0.0.1:5000/calculate_learning_style'; 
                 
                 const response = await fetch(flaskApiUrl, {
                     method: 'POST',
@@ -91,14 +90,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     throw new Error(`HTTP error! Status: ${response.status}. Message: ${errorData.message || response.statusText}`);
                 }
 
-                const data = await response.json();
+                const data = await response.json(); 
                 const queryString = new URLSearchParams(data).toString();
-                window.location.href = `http://localhost:3000/result.php?${queryString}`;
+                window.location.href = `http://localhost/Website-EduStyle/views/result.php?${queryString}`;
 
             } catch (error) {
                 console.error('Terjadi masalah dengan operasi fetch:', error);
                 alert('Terjadi kesalahan saat menghitung gaya belajar. Silakan coba lagi. Detail kesalahan ada di konsol browser.');
             }
         });
-    }
+    } 
 });

@@ -78,6 +78,6 @@ if (json_last_error() !== JSON_ERROR_NONE) {
     <?php
         include __DIR__ . '/components/footer.php';
     ?>
-    <script src="assets/js/question_handler.js"></script>
+    <script src="/../assets/js/question_handler.js"></script>
 </body>
 </html>
