@@ -19,7 +19,7 @@ class QuestionController {
 
             $this->questionModel->saveUserAnswers($answers);
 
-            header("Location: /result"); // Halaman hasil
+            header("Location: /result");
             exit();
         } else {
             header("Location: /question");

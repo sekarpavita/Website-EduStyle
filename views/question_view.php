@@ -1,9 +1,22 @@
+<?php
+$question_json_path = __DIR__ . '/../assets/json/question.json';
+if (!file_exists($question_json_path)) {
+    die("Error: questions.json not found at " . $question_json_path);
+}
+$questions_data = file_get_contents($question_json_path);
+$questions = json_decode($questions_data, true);
+
+if (json_last_error() !== JSON_ERROR_NONE) {
+    die("Error decoding questions.json: " . json_last_error_msg());
+}
+?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EduStyle</title>
+    <title>EduStyle - Identifikasi Gaya Belajar</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -16,7 +29,7 @@
                 <h2 class="page-title">Identifikasi Gaya Belajar Anda</h2>
                 <p class="description">Jawab setiap pernyataan sesuai dengan kebiasaan belajar Anda</p>
 
-                <form action="/submit-answers" method="POST" class="question-form">
+                <form id="learningStyleForm" class="question-form">
                     <?php foreach ($questions as $index => $question): ?>
                     <div class="question-block">
                         <div class="question-number"><?php echo $index + 1; ?></div>
@@ -60,9 +73,11 @@
                     </div>
                 </form>
             </main>
-        </div> </div> <?php
-    include __DIR__ . '/components/footer.php';
+        </div>
+    </div>
+    <?php
+        include __DIR__ . '/components/footer.php';
     ?>
-    <script src="/assets/js/validasi_question.js"></script>
+    <script src="assets/js/question_handler.js"></script>
 </body>
 </html>
