@@ -34,15 +34,19 @@
             'Kinestetik' => $kinestetik_score_normalized
         ];
 
-        arsort($scores);
+        $dominance_threshold = 30;
 
-        $dominant_style_name = key($scores);
-        $dominant_score = current($scores);
+        $dominant_styles_by_threshold = [];
+        foreach ($scores as $style => $score) {
+            if ($score >= $dominance_threshold) {
+                $dominant_styles_by_threshold[] = $style;
+            }
+        }
+
+        $count_dominant_by_threshold = count($dominant_styles_by_threshold);
 
         $page_title_text = "Hasil Gaya Belajar Anda";
         $recommendation_html = "";
-
-        $tolerance = 15;
 
         $styles_info = [
             'Visual' => [
@@ -74,43 +78,44 @@
             ]
         ];
 
-        $dominant_styles_identified = [];
-        if (!empty($scores)) {
-            $max_score_overall = max($scores);
-            foreach ($scores as $style => $score) {
-                if ($max_score_overall - $score <= $tolerance) {
-                    $dominant_styles_identified[] = $style;
-                }
-            }
-        } else {
-            $dominant_styles_identified = [];
-        }
-
-        if (empty($dominant_styles_identified) || ($max_score_overall == 0 && count($dominant_styles_identified) == 3)) {
+        if ($count_dominant_by_threshold == 0) {
             $page_title_text .= ": Belum Teridentifikasi Jelas";
             $recommendation_html .= "<h2>Tidak ada gaya belajar dominan yang teridentifikasi secara jelas.</h2>";
             $recommendation_html .= "<p>Pastikan Anda telah menjawab kuesioner dengan jujur dan lengkap. Anda mungkin memiliki gaya belajar yang seimbang, atau perlu mencoba berbagai metode untuk menemukan yang paling cocok.</p>";
-        } elseif (count($dominant_styles_identified) == 3) {
+        } elseif ($count_dominant_by_threshold == 3) {
             $page_title_text .= " Dominan Campuran (Visual, Auditori, Kinestetik)";
             $recommendation_html .= "<h2>Rekomendasi Metode Belajar Berdasarkan Gaya Belajar Campuran:</h2>";
-            $recommendation_html .= "<ul>";
-            $recommendation_html .= "<li><strong>Visual:</strong> " . implode("</li><li>", $styles_info['Visual']['recs']) . "</li>";
-            $recommendation_html .= "<li><strong>Auditori:</strong> " . implode("</li><li>", $styles_info['Auditori']['recs']) . "</li>";
-            $recommendation_html .= "<li><strong>Kinestetik:</strong> " . implode("</li><li>", $styles_info['Kinestetik']['recs']) . "</li>";
-            $recommendation_html .= "</ul>";
-        } elseif (count($dominant_styles_identified) == 2) {
-            $page_title_text .= " Dominan " . implode(" dan ", $dominant_styles_identified);
-            $recommendation_html .= "<h2>Rekomendasi Metode Belajar untuk Gaya Belajar " . implode(" dan ", $dominant_styles_identified) . ":</h2>";
-            $recommendation_html .= "<ul>";
-            foreach ($dominant_styles_identified as $style) {
-                $recommendation_html .= "<li><strong>" . $style . ":</strong> " . implode("</li><li>", $styles_info[$style]['recs']) . "</li>";
+            
+            $all_styles_ordered = ['Visual', 'Auditori', 'Kinestetik'];
+            foreach ($all_styles_ordered as $style) {
+                $recommendation_html .= "<h3>" . $style . ":</h3>";
+                $recommendation_html .= "<ul>";
+                foreach ($styles_info[$style]['recs'] as $rec) {
+                    $recommendation_html .= "<li>" . $rec . "</li>";
+                }
+                $recommendation_html .= "</ul>";
             }
-            $recommendation_html .= "</ul>";
+        } elseif ($count_dominant_by_threshold == 2) {
+            sort($dominant_styles_by_threshold); 
+            $page_title_text .= " Dominan " . implode(" dan ", $dominant_styles_by_threshold);
+            $recommendation_html .= "<h2>Rekomendasi Metode Belajar untuk Gaya Belajar " . implode(" dan ", $dominant_styles_by_threshold) . ":</h2>";
+            
+            foreach ($dominant_styles_by_threshold as $style) {
+                $recommendation_html .= "<h3>" . $style . ":</h3>";
+                $recommendation_html .= "<ul>";
+                foreach ($styles_info[$style]['recs'] as $rec) {
+                    $recommendation_html .= "<li>" . $rec . "</li>";
+                }
+                $recommendation_html .= "</ul>";
+            }
         } else {
-            $page_title_text .= " Dominan " . $dominant_style_name;
-            $recommendation_html .= "<h2>Rekomendasi Metode Belajar Berdasarkan Gaya Belajar " . $dominant_style_name . ":</h2>";
+            $single_dominant_style = $dominant_styles_by_threshold[0];
+            $page_title_text .= " Dominan " . $single_dominant_style;
+            $recommendation_html .= "<h2>Rekomendasi Metode Belajar Berdasarkan Gaya Belajar " . $single_dominant_style . ":</h2>";
             $recommendation_html .= "<ul>";
-            $recommendation_html .= "<li>" . implode("</li><li>", $styles_info[$dominant_style_name]['recs']) . "</li>";
+            foreach ($styles_info[$single_dominant_style]['recs'] as $rec) {
+                $recommendation_html .= "<li>" . $rec . "</li>";
+            }
             $recommendation_html .= "</ul>";
         }
     ?>
@@ -161,8 +166,8 @@
         </div>
 
         <div class="buttons">
-            <button onclick="window.location.href='/'">Ulangi Tes</button>
-            <button onclick="window.location.href='/question'">Kembali ke Beranda</button>
+            <button onclick="window.location.href='/question'">Ulangi Tes</button>
+            <button onclick="window.location.href='/'">Kembali ke Beranda</button>
         </div>
     </div>
 
